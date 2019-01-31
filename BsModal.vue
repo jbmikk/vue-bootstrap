@@ -11,9 +11,9 @@
       <div class="modal-content">
 
         <div class="modal-header">
-          <slot name="modal-header">
+          <slot name="modal-header" v-bind:modal="this">
             <h5 class="modal-title" id="modalLabel">
-              <slot name="modal-title">
+              <slot name="modal-title" v-bind:modal="this">
                 Modal title
               </slot>
             </h5>
@@ -24,11 +24,12 @@
         </div>
 
         <div class="modal-body">
-          <slot></slot>
+          <slot v-bind:modal="this">
+          </slot>
         </div>
 
         <div class="modal-footer">
-          <slot name="modal-footer">
+          <slot name="modal-footer" v-bind:modal="this">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="hide(false)">
               Close
             </button>
