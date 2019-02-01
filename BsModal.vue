@@ -59,6 +59,9 @@ export default {
       let _this = this;
 
       this.$emit("show-bs-modal");
+
+      this.$el.ownerDocument.body.classList.add('modal-open');
+
       // TODO: wait transitions
       this.$emit("shown-bs-modal");
 
@@ -71,6 +74,9 @@ export default {
       this.isOpen = false;
 
       this.$emit("hide-bs-modal");
+
+      this.$el.ownerDocument.body.classList.remove('modal-open');
+
       // TODO: wait transitions
       this.$emit("hidden-bs-modal");
 
