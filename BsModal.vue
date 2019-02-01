@@ -58,6 +58,10 @@ export default {
       this.isOpen = true;
       let _this = this;
 
+      this.$emit("show.bs.modal");
+      // TODO: wait transitions
+      this.$emit("shown.bs.modal");
+
       return new Promise(function(resolve, reject) {
         _this.resolve = resolve;
         _this.reject = reject;
@@ -65,6 +69,11 @@ export default {
     },
     hide: function(value) {
       this.isOpen = false;
+
+      this.$emit("hide.bs.modal");
+      // TODO: wait transitions
+      this.$emit("hidden.bs.modal");
+
       if(value) {
         this.resolve(value);
       } else {
