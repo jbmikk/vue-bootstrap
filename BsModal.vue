@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div class="modal fade" id="exampleModal"
-      v-bind:class="{ show: isOpen }"
+    <div class="modal fade" ref="modal"
+      v-bind:class="{ show: shouldBeShown }"
       v-bind:style="{ display: isOpen? 'block': 'none' }"
+      @transitionend.self="onTransitionEnd()"
       tabindex="-1"
       role="dialog"
       aria-labelledby="modalLabel"
@@ -44,7 +45,7 @@
       </div>
     </div>
     <div class="modal-backdrop fade"
-      v-bind:class="{ show: isOpen }"
+      v-bind:class="{ show: shouldBeShown }"
       v-bind:style="{ display: isOpen? 'block': 'none' }"
     ></div>
   </div>
@@ -55,21 +56,28 @@ export default {
   data: function() {
     return {
       isOpen: false,
+      shouldBeShown: false,
       resolve: null,
       reject: null
     }
   },
+  mounted: function() {
+  },
   methods: {
     show: function() {
-      this.isOpen = true;
       let _this = this;
+
+      this.isOpen = true;
+
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.shouldBeShown = true;
+        }, 0);
+      });
 
       this.$emit("show-bs-modal");
 
       this.$el.ownerDocument.body.classList.add('modal-open');
-
-      // TODO: wait transitions
-      this.$emit("shown-bs-modal");
 
       return new Promise(function(resolve, reject) {
         _this.resolve = resolve;
@@ -77,19 +85,24 @@ export default {
       });
     },
     hide: function(value) {
-      this.isOpen = false;
+
+      this.shouldBeShown = false;
 
       this.$emit("hide-bs-modal");
-
-      this.$el.ownerDocument.body.classList.remove('modal-open');
-
-      // TODO: wait transitions
-      this.$emit("hidden-bs-modal");
 
       if(value) {
         this.resolve(value);
       } else {
         this.reject(value);
+      }
+    },
+    onTransitionEnd: function() {
+      if(this.shouldBeShown) {
+        this.$emit("shown-bs-modal");
+      } else {
+        this.isOpen = false;
+        this.$emit("hidden-bs-modal");
+        this.$el.ownerDocument.body.classList.remove('modal-open');
       }
     }
   }
