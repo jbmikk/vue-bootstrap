@@ -44,6 +44,7 @@
       </div>
     </div>
     <div class="modal-backdrop fade"
+      v-bind:class="{ show: isOpen }"
       v-bind:style="{ display: isOpen? 'block': 'none' }"
     ></div>
   </div>
