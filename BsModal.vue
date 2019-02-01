@@ -1,46 +1,49 @@
 <template>
-  <div class="modal fade" id="exampleModal"
-    v-bind:class="{ show: isOpen }"
-    v-bind:style="{ display: isOpen? 'block': 'none' }"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="modalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
+  <div>
+    <div class="modal fade" id="exampleModal"
+      v-bind:class="{ show: isOpen }"
+      v-bind:style="{ display: isOpen? 'block': 'none' }"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="modalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
 
-        <div class="modal-header">
-          <slot name="modal-header" v-bind:modal="this">
-            <h5 class="modal-title" id="modalLabel">
-              <slot name="modal-title" v-bind:modal="this">
-                Modal title
-              </slot>
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="hide(false)">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </slot>
+          <div class="modal-header">
+            <slot name="modal-header" v-bind:modal="this">
+              <h5 class="modal-title" id="modalLabel">
+                <slot name="modal-title" v-bind:modal="this">
+                  Modal title
+                </slot>
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="hide(false)">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </slot>
+          </div>
+
+          <div class="modal-body">
+            <slot v-bind:modal="this">
+            </slot>
+          </div>
+
+          <div class="modal-footer">
+            <slot name="modal-footer" v-bind:modal="this">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="hide(false)">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary" @click="hide(true)">
+                Save
+              </button>
+            </slot>
+          </div>
+
         </div>
-
-        <div class="modal-body">
-          <slot v-bind:modal="this">
-          </slot>
-        </div>
-
-        <div class="modal-footer">
-          <slot name="modal-footer" v-bind:modal="this">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="hide(false)">
-              Close
-            </button>
-            <button type="button" class="btn btn-primary" @click="hide(true)">
-              Save
-            </button>
-          </slot>
-        </div>
-
       </div>
     </div>
+    <div class="modal-backdrop fade"></div>
   </div>
 </template>
 
