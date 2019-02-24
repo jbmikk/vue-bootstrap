@@ -72,17 +72,18 @@ export default {
       this.$nextTick(() => {
         setTimeout(() => {
           this.shouldBeShown = true;
+
+          let focus = this.$el.querySelector('[autofocus]');
+          if(focus) {
+            focus.focus();
+          }
+
         }, 0);
       });
 
       this.$emit("show-bs-modal");
 
       this.$el.ownerDocument.body.classList.add('modal-open');
-
-      let focus = this.$el.querySelector('[autofocus]');
-      if(focus) {
-        focus.focus();
-      }
 
       return new Promise(function(resolve, reject) {
         _this.resolve = resolve;
