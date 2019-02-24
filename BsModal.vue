@@ -79,7 +79,7 @@ export default {
 
       this.$el.ownerDocument.body.classList.add('modal-open');
 
-      let focus = this.$el.querySelector('autofocus');
+      let focus = this.$el.querySelector('[autofocus]');
       if(focus) {
         focus.focus();
       }
