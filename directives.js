@@ -22,5 +22,16 @@ export default {
         }
       });
     }
+  },
+  bsToggleCollapse: {
+    inserted: function(el) {
+
+      function toggle() {
+        const target = el.ownerDocument.querySelector(el.dataset.target);
+        target.classList.toggle('show');
+      }
+
+      el.addEventListener('click', toggle);
+    }
   }
 };
