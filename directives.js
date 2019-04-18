@@ -21,6 +21,12 @@ export default {
           close();
         }
       });
+
+      menu.addEventListener('click', (event) => {
+        if(event.target.closest('.dropdown-item')) {
+          close();
+        }
+      });
     }
   },
   bsToggleCollapse: {
