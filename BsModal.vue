@@ -9,7 +9,7 @@
       aria-labelledby="modalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog" role="document" v-bind:class="dialogClasses">
         <div class="modal-content">
 
           <div class="modal-header">
@@ -53,6 +53,7 @@
 
 <script>
 export default {
+  props: ['size'],
   data: function() {
     return {
       isOpen: false,
@@ -62,6 +63,13 @@ export default {
     }
   },
   mounted: function() {
+  },
+  computed: {
+    dialogClasses: function() {
+      return {
+        ['modal-' + this.size]: !!this.size
+      };
+    }
   },
   methods: {
     show: function() {
